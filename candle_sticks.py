@@ -1,6 +1,7 @@
-from settings import auth_client, product
+from settings import product
 import time, sqlite3
 from datetime import datetime
+from ticker_price import Ticker
 
 endtime = time.time() + 60
 while time.time() < endtime:
@@ -24,9 +25,12 @@ class Candle(object):
 
             while init_time == datetime.utcnow().strftime("%Y-%m-%d %H:%M"):
 
-                y = float(auth_client.get_product_ticker(product)['price'])
-                print('*****API*****candle.py - Product Ticker: ', ticker_price)
-                x.append(y)
+                ticker_price = Ticker()
+                ticker_price = ticker_price.ticker()
+
+                tickerPrice = float(ticker_price)
+                print('*****API*****candle.py - Product Ticker: ', tickerPrice)
+                x.append(tickerPrice)
                 time.sleep(1)
                 print(float(datetime.utcnow().strftime("%S.%f")))
 
