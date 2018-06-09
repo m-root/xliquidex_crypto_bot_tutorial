@@ -1,7 +1,19 @@
 from settings import auth_client, product
-import time
+import time, sqlite3
 from datetime import datetime
 
+endtime = time.time() + 60
+while time.time() < endtime:
+    value = datetime.utcnow().strftime("%S")
+    entTime = int(value)
+    print(60 - entTime)
+    time.sleep(1)
+    if entTime == 0 or entTime == 1:
+        break
+
+conn = sqlite3.connect('crypto_scalper.db')
+c = conn.cursor()
+stack = []
 
 class Candle(object):
 
